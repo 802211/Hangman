@@ -1,29 +1,67 @@
+import java.awt.GridLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Stack;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Hangman {
+public class Hangman implements KeyListener {
 
 	public static void main(String[] args) {
 		Hangman h = new Hangman();
 		h.setup();
 		h.letterSetup();
+		h.start();
 	}
 
+	ArrayList<String> alist = new ArrayList<String>();
+	Stack<String> s = new Stack<String>();
 	int livess = 9;
 	int wordssolved = 0;
 	JFrame f = new JFrame();
-	JPanel p = new JPanel();
+	JPanel p = new JPanel(new GridLayout(4, 1));
 	JLabel letter = new JLabel();
-	JTextField dash = new JTextField();
+	JLabel dash = new JLabel();
 	JLabel lives = new JLabel();
 	JLabel solved = new JLabel();
+	String random = new String();
+
+	int n = 0;
+BufferedReader read;
+	void start() {
+		String number = JOptionPane.showInputDialog("How many words would you like to solve?");
+		n = Integer.parseInt(number);
+		try {
+			read = new BufferedReader(new FileReader("dictionary.txt"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	void stuff() {
+		
+		for (int i = 0; i < n; i++) {
+
+		}
+
+	}
 
 	void setup() {
+		f.addKeyListener(this);
 		f.setVisible(true);
 		f.add(p);
-		f.setSize(800, 500);
+		f.setSize(200, 500);
 		p.add(letter);
 		p.add(dash);
 		p.add(lives);
@@ -36,13 +74,34 @@ public class Hangman {
 		dash.setVisible(true);
 		lives.setVisible(true);
 		solved.setVisible(true);
-		letter.setVerticalTextPosition(JLabel.TOP);
-		// dash.setVerticalTextPosition(JLabel.CENTER);
-		// lives.setVerticalTextPosition(JLabel.);
-		letter.setText("Guess a letter");
-		dash.setText("_");
-		lives.setText("You have " + livess + " lives left");
-		solved.setText("You have solved " + wordssolved + " words");
+
+		letter.setText(" \n Guess a letter");
+		dash.setText("\n -");
+		lives.setText("\n You have " + livess + " lives left");
+		solved.setText("\n You have solved " + wordssolved + " words");
+
+	}
+
+	void word() {
+		int r = new Random().nextInt();
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
