@@ -4,6 +4,7 @@ import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
@@ -23,7 +24,7 @@ public class Hangman implements KeyListener {
 		h.start();
 	}
 
-	ArrayList<String> alist = new ArrayList<String>();
+	ArrayList<Integer> alist = new ArrayList<Integer>();
 	Stack<String> s = new Stack<String>();
 	int livess = 9;
 	int wordssolved = 0;
@@ -41,21 +42,27 @@ BufferedReader read;
 		String number = JOptionPane.showInputDialog("How many words would you like to solve?");
 		n = Integer.parseInt(number);
 		try {
-			read = new BufferedReader(new FileReader("dictionary.txt"));
+			
+			for (int j = 0; j < n; j++) {
+				int r = new Random().nextInt();
+				alist.add(r);
+			}
+			read = new BufferedReader(new FileReader("src/dictionary.txt"));
+			
+			for(int i = 0; i < n; i++) {
+			System.out.println(read.read());
+			}
 		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
 
-	void stuff() {
-		
-		for (int i = 0; i < n; i++) {
 
-		}
-
-	}
 
 	void setup() {
 		f.addKeyListener(this);
@@ -82,9 +89,7 @@ BufferedReader read;
 
 	}
 
-	void word() {
-		int r = new Random().nextInt();
-	}
+
 
 	@Override
 	public void keyTyped(KeyEvent e) {
