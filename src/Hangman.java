@@ -20,8 +20,9 @@ public class Hangman implements KeyListener {
 	public static void main(String[] args) {
 		Hangman h = new Hangman();
 		h.setup();
-		h.letterSetup();
 		h.start();
+		h.letterSetup();
+	
 	}
 
 	ArrayList<Integer> alist = new ArrayList<Integer>();
@@ -29,7 +30,8 @@ public class Hangman implements KeyListener {
 	int livess = 9;
 	int wordssolved = 0;
 	JFrame f = new JFrame();
-	JPanel p = new JPanel(new GridLayout(4, 1));
+	//JPanel p = new JPanel(new GridLayout(4, 1));
+	JPanel p = new JPanel();
 	JLabel letter = new JLabel();
 	JLabel dash = new JLabel();
 	JLabel lives = new JLabel();
@@ -44,47 +46,68 @@ BufferedReader read;
 		try {
 			
 			for (int j = 0; j < n; j++) {
-				int r = new Random().nextInt();
+				int r = new Random().nextInt(3000);
 				alist.add(r);
 			}
 			read = new BufferedReader(new FileReader("src/dictionary.txt"));
-			
-			for(int i = 0; i < n; i++) {
-			System.out.println(read.read());
+			String line = read.readLine();
+			int counter = 0;
+			while(line != null) {
+				if(alist.contains(counter)) {
+					s.push(line);
+				}
+				
+				counter++;
+				line = read.readLine();
+				System.out.println(s);
+				
 			}
-		} catch (FileNotFoundException e) {
+			
+			}
+		 catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		
 		}
-
 	}
-
-
+	
+	
+	void blanks() {
+	
+	}
 
 	void setup() {
 		f.addKeyListener(this);
 		f.setVisible(true);
 		f.add(p);
-		f.setSize(200, 500);
+		f.setSize(400, 120);
 		p.add(letter);
 		p.add(dash);
 		p.add(lives);
 		p.add(solved);
 		p.setVisible(true);
 	}
-
+String str;
 	void letterSetup() {
 		letter.setVisible(true);
 		dash.setVisible(true);
 		lives.setVisible(true);
 		solved.setVisible(true);
 
-		letter.setText(" \n Guess a letter");
-		dash.setText("\n -");
-		lives.setText("\n You have " + livess + " lives left");
+		letter.setText(" \n                                       Guess a letter" + "                           "
+				+ "                         ");
+		str = s.pop();
+		String singleDash = "-";
+		String numDash = "";
+		for(int h = 0; h < str.length(); h++) {
+		numDash = numDash + singleDash;
+		}
+		dash.setText(numDash);
+		lives.setText("                         "
+				+ "      " + "\n You have " + livess + " lives left" + "                        ");
 		solved.setText("\n You have solved " + wordssolved + " words");
 
 	}
@@ -94,13 +117,15 @@ BufferedReader read;
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+if(str.contains("" + e.getKeyChar())){
+	
+}
 	}
 
 	@Override
