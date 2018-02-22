@@ -91,17 +91,18 @@ BufferedReader read;
 		p.setVisible(true);
 	}
 String str;
+String numDash = "";
 	void letterSetup() {
 		letter.setVisible(true);
 		dash.setVisible(true);
 		lives.setVisible(true);
 		solved.setVisible(true);
 
-		letter.setText(" \n                                       Guess a letter" + "                           "
+		letter.setText(" \n                                          Guess a letter" + "                           "
 				+ "                         ");
 		str = s.pop();
 		String singleDash = "-";
-		String numDash = "";
+		
 		for(int h = 0; h < str.length(); h++) {
 		numDash = numDash + singleDash;
 		}
@@ -110,6 +111,8 @@ String str;
 				+ "      " + "\n You have " + livess + " lives left" + "                        ");
 		solved.setText("\n You have solved " + wordssolved + " words");
 
+
+		
 	}
 
 
@@ -122,11 +125,55 @@ String str;
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+String displayword = "";
 		// TODO Auto-generated method stub
-if(str.contains("" + e.getKeyChar())){
+boolean guess;
+if(str.contains("" + e.getKeyChar())) {
+	guess = true;
+}
+else {
+	guess = false;
+	livess = livess -1;
+	lives.setText("                         "
+			+ "      " + "\n You have " + livess + " lives left" + "                        ");
+}
+if(guess = true) {
+for (int j = 0; j < str.length(); j++) {
+if(str.charAt(j) == e.getKeyChar()){
+	//System.out.println(e.getKeyChar());
+		displayword += str.charAt(j);
+		
+	}
+else {
+	displayword += numDash.charAt(j);
+}
+
+
+
+}
+	numDash = displayword;
+	dash.setText(numDash);
+}
+if(numDash.contains("-") && livess == 0) {
+	JOptionPane.showMessageDialog(null, "Game over. \n You lost.");
+}
+
+else if(numDash.contains("-") && livess >=1){
 	
 }
-	}
+else if(numDash.contains("-") && livess <=1) {
+	livess =0;
+	lives.setText("                         "
+			+ "      " + "\n You have " + livess + " lives left" + "                        ");
+	JOptionPane.showMessageDialog(null, "You already lost. Game is over.");
+}
+else {
+	JOptionPane.showMessageDialog(null, "You solved a word.");
+	s.pop();
+	str = s.pop();
+}
+}
+	
 
 	@Override
 	public void keyReleased(KeyEvent e) {
