@@ -93,6 +93,7 @@ BufferedReader read;
 String str;
 String numDash = "";
 	void letterSetup() {
+		numDash = "";
 		letter.setVisible(true);
 		dash.setVisible(true);
 		lives.setVisible(true);
@@ -154,6 +155,8 @@ else {
 	numDash = displayword;
 	dash.setText(numDash);
 }
+
+
 if(numDash.contains("-") && livess == 0) {
 	JOptionPane.showMessageDialog(null, "Game over. \n You lost.");
 }
@@ -167,10 +170,15 @@ else if(numDash.contains("-") && livess <=1) {
 			+ "      " + "\n You have " + livess + " lives left" + "                        ");
 	JOptionPane.showMessageDialog(null, "You already lost. Game is over.");
 }
+else if(wordssolved+1 == n) {
+	JOptionPane.showMessageDialog(null, "You won! You solved " + wordssolved + " words");
+}
 else {
 	JOptionPane.showMessageDialog(null, "You solved a word.");
-	s.pop();
-	str = s.pop();
+
+wordssolved = wordssolved + 1;
+solved.setText("\n You have solved " + wordssolved + " words");
+letterSetup();
 }
 }
 	
